@@ -1,12 +1,13 @@
 import { Project } from "./project";
-import { Todo } from "./todo"
+import { Task } from "./tasks";
+import { Todo } from "./todo.js"
 
 const content = document.querySelector('#content');
 
 
 // ••••••••••••••••••• project(s) sidebar •••••••••••••••••••
 export default function ui() {
-    const newTodo = new Todo('this', 'that')
+    const newTodo = new Todo();
 
     // toggle form elements on an event
     const toggleHidden = () => {
@@ -25,15 +26,17 @@ export default function ui() {
     }
 
     // add an empty project to the project list of divs
-    const addProject = (name = '') => {
+    const createProject = (name = '') => {
         const project = new Project(name)
-        project.createProject(name)
+        // project.createProject(name)
         const projectList = document.querySelector('.projectList');
         const newProject = document.createElement('div');
         newProject.classList.add('tile')
         project.addTodo(1)
+        newTodo.addProject(project);
         newProject.innerText = project.name;
         projectList.appendChild(newProject)
+        newTodo.showProjects();
     }
 
     // event listener block for adding projects
@@ -42,7 +45,7 @@ export default function ui() {
         // addProject()
         toggleHidden()
         const createProjectInput = document.querySelector('.createProjectInput');
-        addProject(createProjectInput.value)
+        createProject(createProjectInput.value)
         createProjectInput.value = '';
     })
 
@@ -58,5 +61,4 @@ export default function ui() {
 
         }
     });
-
 }

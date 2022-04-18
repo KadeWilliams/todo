@@ -1,11 +1,14 @@
 class Todo {
-    constructor(parent, title) {
-        this.parent = parent;
-        this.title = title;
-        this.description = null;
-        this.dueDate = null;
-        this.priority = null;
-        this.checked = false;
+    constructor() {
+        this.projects = [];
+    }
+
+    addProject(project) {
+        this.projects.push(project)
+    }
+
+    showProjects() {
+        console.log(this.projects)
     }
 }
 
