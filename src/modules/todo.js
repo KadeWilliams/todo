@@ -1,9 +1,12 @@
-// 
-export default function createTodo(title, description, dueDate = null, priority = null) {
-    return {
-        title: title,
-        description: description,
-        dueDate: dueDate,
-        priority: priority
+class Todo {
+    constructor(parent, title) {
+        this.parent = parent;
+        this.title = title;
+        this.description = null;
+        this.dueDate = null;
+        this.priority = null;
+        this.checked = false;
     }
 }
+
+export { Todo }

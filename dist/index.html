@@ -11,7 +11,44 @@
 
 <body>
     <div id="content">
+        <section class="projects">
+            <h2 class="project-header">Projects</h2>
+            <hr>
+            <div class="projectList">
+                <div class="tile">Project 1</div>
+                <div class="tile">Project 2</div>
+                <div class="tile">Project 3</div>
+            </div>
+            <form action="" class="createProjectForm hidden" onsubmit="return false;">
+                <input type="text" placeholder="Enter Project Name" class="createProjectInput">
+                <button type="submit" class="addProjectBtn">Add</button>
+            </form>
+            <button class="createProjectBtn">+</button>
+        </section>
 
+        <section class="todo new-todo">
+            <!-- <form action="">
+                <label for="title">Title:</label>
+                <input id="title" type="text">
+
+                <label for="description">Description:</label>
+                <input id="description" type="text">
+
+                <label for="dueDate">Due Date:</label>
+                <input id="dueDate" type="text">
+
+                <label for="priority">Priority:</label>
+                <select name="priority" id="priority">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    <option value="critical">Critical</option>
+                </select>
+                <button type="submit">Create Todo</button>
+            </form> -->
+        </section>
+
+        <footer class="footer">&copy; Kade Williams</footer>
     </div>
     <script src="main.js"></script>
 </body>
