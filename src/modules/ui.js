@@ -3,7 +3,7 @@
 //Each project could have many tasks associated with it
 import { Project } from "./project";
 import { Task } from "./tasks";
-// import { Todo } from "./todo.js"
+import { Todo } from "./todo.js"
 
 const content = document.querySelector('#content');
 
@@ -25,23 +25,33 @@ export default function ui() {
 
         createProjectForm.classList.toggle('hidden');
     }
+
+    const addProject = () => {
+        const createProjectBtn = document.querySelector('.createProjectBtn');
+        createProjectBtn.addEventListener('click', () => {
+            toggleHidden();
+        })
+    }
+
     const project = new Project('kade');
     const task = new Task('task', "this is a test task")
     const task2 = new Task('task2', "this is another test task")
-    // console.log(task)
     project.addTask(task);
     project.addTask(task2);
-    console.log(project)
-    // console.log(project.task.description);
-    // project.addTask
-    // project.addTask(project.name)
 
+    const project2 = new Project('chloe');
+    const task3 = new Task('task3', "new test")
+    const task4 = new Task('task4', "test task 4")
 
-    // const project2 = new Project('chloe');
-    // project2.addTask(project2.name);
-    // // console.log(project2.getTasks());
-    // project2.getTasks();
-    // // console.log(project2.showTasks());
+    project2.addTask(task3)
+    project2.addTask(task4)
+
+    const projTasks = project2.getAllTasks();
+    // for (let i = 0; i <= project2.tasks.length - 1; i++) {
+    //     for (let prop in project2.tasks[i]) {
+    //         console.log(project2.tasks[i][prop])
+    //     }
+    // }
 }
 
 
