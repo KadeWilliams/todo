@@ -26,12 +26,8 @@ export default function ui() {
         createProjectForm.classList.toggle('hidden');
     }
 
-    const addProject = () => {
-        const createProjectBtn = document.querySelector('.createProjectBtn');
-        createProjectBtn.addEventListener('click', () => {
-            toggleHidden();
-        })
-    }
+    const createProjectBtn = document.querySelector('.createProject');
+    createProjectBtn.addEventListener('click', toggleHidden());
 
     const project = new Project('kade');
     const task = new Task('task', "this is a test task")
