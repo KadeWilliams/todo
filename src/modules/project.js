@@ -1,20 +1,31 @@
 class Project {
+    // creating a project
     constructor(name) {
         this.name = name;
-        this.tasks = [];
     }
 
     getName() {
         return this.name
     }
 
-    addTask(task) {
-        this.tasks.push(task)
+    addTask(newTask) {
+        const tasks = newTask;
+        this[newTask.taskTitle] = newTask;
     }
 
+    // will return the list of tasks associated with the project attached to the function call
     getTasks() {
-        console.log(this.tasks)
-        // this.tasks.forEach(task => { return task })
+        // let tasks = this.getTasks()
+        // console.log(tasks)
+    }
+
+    // will return the project attached to the function call
+    getProject() {
+        console.log(this.project[this.name])
+        // for (let tasks in this.project) {
+        //     return tasks
+        // }
+        // return list of tasks
     }
 }
 

@@ -1,12 +1,12 @@
 class Task {
-    constructor(parent, title) {
-        this.parent = parent;
-        this.title = title;
-        this.description = null;
-        this.dueDate = null;
-        this.priority = null;
-        this.checked = false;
+    constructor(taskTitle, description = null, dueDate = null, priority = null, checked = false) {
+        this.taskTitle = taskTitle;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.priority = priority;
+        this.checked = checked;
     }
+
 }
 
 

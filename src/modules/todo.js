@@ -1,25 +1,49 @@
-// import {Project} from "./project.js"
+import { Project } from "./project.js"
 
 class Todo {
     constructor() {
-        this.projects = {};
-        // this.index = 0;
+        this.todo = []
     }
 
-    addProject(project) {
-        this.projects[project] = [];
-        // this.projects.push(project)
+    _addProject(project) {
+        this.todo.push(project)
     }
 
-    addTask(project, task) {
-        this.projects[project].push(task)
-    }
-
-    showProjects(project) {
-        for (let task in this.projects[project]) {
-            console.log(task)
+    showProjects() {
+        for (let project in this.todo) {
+            console.log(project)
         }
+        // return something
+    }
+
+    _deleteProject(project) {
+        this.todo.pop(this.todo.indexOf(project))
+        // delete this.todo.project;
     }
 }
+
+
+
+// class Todo {
+//     constructor() {
+//         this.projects = {};
+//         // this.index = 0;
+//     }
+
+//     addProject(project) {
+//         this.projects[project] = [];
+//         // this.projects.push(project)
+//     }
+
+//     addTask(project, task) {
+//         this.projects[project].push(task)
+//     }
+
+//     showProjects(project) {
+//         for (let task in this.projects[project]) {
+//             console.log(task)
+//         }
+//     }
+// }
 
 export { Todo }
