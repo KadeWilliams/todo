@@ -2,12 +2,18 @@ import { Project } from "./project.js"
 
 class Todo {
     constructor() {
-        this.todo = []
+        // this.todo = []
+        this.todo = {}
     }
 
     _addProject(project) {
-        this.todo.push(project)
+        // this.todo.push(project)
+        this.todo[project.name] = project
     }
+
+    // getProject(project) {
+    //     return 
+    // }
 
     showProjects() {
         for (let project in this.todo) {
@@ -16,34 +22,14 @@ class Todo {
         // return something
     }
 
+    getProject(projectName) {
+        return this.todo[projectName]
+    }
+
     _deleteProject(project) {
         this.todo.pop(this.todo.indexOf(project))
         // delete this.todo.project;
     }
 }
-
-
-
-// class Todo {
-//     constructor() {
-//         this.projects = {};
-//         // this.index = 0;
-//     }
-
-//     addProject(project) {
-//         this.projects[project] = [];
-//         // this.projects.push(project)
-//     }
-
-//     addTask(project, task) {
-//         this.projects[project].push(task)
-//     }
-
-//     showProjects(project) {
-//         for (let task in this.projects[project]) {
-//             console.log(task)
-//         }
-//     }
-// }
 
 export { Todo }
