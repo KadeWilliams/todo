@@ -1,3 +1,6 @@
+//Each User will have one instance of todo, generated at start up
+//Each task could have many projects
+//Each project could have many tasks associated with it
 import { Project } from "./project";
 import { Task } from "./tasks";
 import { Todo } from "./todo.js"
@@ -32,11 +35,11 @@ export default function ui() {
         const projectList = document.querySelector('.projectList');
         const newProject = document.createElement('div');
         newProject.classList.add('tile')
-        project.addTodo(1)
+        project.addTask(1)
         newTodo.addProject(project);
         newProject.innerText = project.name;
         projectList.appendChild(newProject)
-        newTodo.showProjects();
+        // newTodo.showProjects();
     }
 
     // event listener block for adding projects

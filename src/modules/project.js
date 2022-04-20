@@ -8,11 +8,11 @@ class Project {
         return this.name
     }
 
-    addTodo(task) {
+    addTask(task) {
         this.tasks.push(task)
     }
 
-    getTodos() {
+    getTasks() {
         console.log(this.tasks)
         // this.tasks.forEach(task => { return task })
     }
