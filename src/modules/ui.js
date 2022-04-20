@@ -28,20 +28,6 @@ export default function ui() {
         createProjectForm.classList.toggle('hidden');
     }
 
-    // add an empty project to the project list of divs
-    const createProject = (name = '') => {
-        const project = new Project(name)
-        // project.createProject(name)
-        const projectList = document.querySelector('.projectList');
-        const newProject = document.createElement('div');
-        newProject.classList.add('tile')
-        project.addTask(1)
-        newTodo.addProject(project);
-        newProject.innerText = project.name;
-        projectList.appendChild(newProject)
-        // newTodo.showProjects();
-    }
-
     // event listener block for adding projects
     const addProjectBtn = document.querySelector('.addProjectBtn');
     addProjectBtn.addEventListener('click', (e) => {
@@ -52,6 +38,21 @@ export default function ui() {
         createProjectInput.value = '';
     })
 
+    // add an empty project to the project list of divs
+    const createProject = (name = '') => {
+
+        const project = new Project(name)
+        // project.createProject(name)
+        const projectList = document.querySelector('.projectList');
+        const newProject = document.createElement('div');
+        newProject.classList.add('tile')
+        newProject.setAttribute('data-connection', project.name)
+        newProject.innerText = project.name;
+        newTodo.addProject(project.name);
+        project.addTask(1)
+        projectList.appendChild(newProject)
+    }
+
     const createProjectBtn = document.querySelector('.createProjectBtn');
     createProjectBtn.addEventListener('click', () => {
         toggleHidden()
@@ -61,7 +62,18 @@ export default function ui() {
     const projectList = document.querySelector('.projectList');
     projectList.addEventListener('click', (e) => {
         if (e.target.classList.contains('tile')) {
-
+            let property = e.path[0].getAttribute("data-connection")
+            console.log(newTodo)
+            console.log(newTodo.projects[property]);
+            newTodo.addTask(property, 1)
+            newTodo.addTask(property, 2)
+            newTodo.addTask(property, 3)
+            newTodo.showProjects(property)
         }
     });
+
+
+    // ••••••••••••••••••• task(s) •••••••••••••••••••
+
+
 }
