@@ -14,8 +14,7 @@
         <section class="projects">
             <h2 class="project-header">Projects</h2>
             <hr>
-            <div class="projectList">
-            </div>
+            <div class="projectList"></div>
             <form action="" class="createProjectForm hidden" onsubmit="return false;">
                 <input type="text" placeholder="Enter Project Name" class="createProjectInput">
                 <button type="submit" class="addProjectBtn">Add</button>
@@ -24,6 +23,14 @@
         </section>
 
         <section class="todo new-todo">
+            <div class="project">
+                <div class="currentProject"></div>
+                <div class="currentTitle hidden">currentTitle</div>
+                <div class="currentDescription hidden">currentDescription</div>
+                <div class="currentDueDate hidden">currentDueDate</div>
+                <div class="currentPriority hidden">currentPriority</div>
+                <div class="currentStatus hidden">currentStatus</div>
+            </div>
             <form action="" onsubmit="return false;">
                 <label for="title">Title:</label>
                 <input id="title" type="text">
