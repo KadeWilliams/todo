@@ -37,9 +37,9 @@ export default function ui() {
             let createProjectInput = document.querySelector('.createProjectInput');
             const project = new Project(createProjectInput.value)
             newTodo._addProject(project)
-            // console.log(newTodo)
             appendProject(project)
             createProjectInput.value = '';
+            toggleHidden()
         });
     }
 
@@ -54,22 +54,54 @@ export default function ui() {
 
     const projectList = document.querySelector('.projectList');
     projectList.addEventListener('click', (e) => {
-        let currProject = newTodo.todo[e.target.dataset.connection]
-        currProject.addTask('123')
-        console.log(currProject.tasks);
         const todos = document.querySelector('.todo')
-        todos.innerHTML = currProject.tasks
+        if (todos.lastChild !== '#text') {
+            todos.removeChild(todos.lastChild)
+        }
+        let currProject = newTodo.todo[e.target.dataset.connection]
+        const showProject = document.createElement('div');
+        showProject.classList.add('curr-project')
+        showProject.setAttribute('data-connection', e.target.dataset.connection)
+        showProject.innerHTML = currProject.name
+        todos.appendChild(showProject)
+        // todos.innerHTML
     })
 
     const createTodoBtn = document.querySelector('.createTodoBtn');
-    createTodoBtn.addEventListener('click', () => {
-        console.log('created')
+    createTodoBtn.addEventListener('click', (e) => {
+        const todos = document.querySelector('.todo')
+        const currProject = document.querySelector('.curr-project');
+        const proj = newTodo.todo[currProject.getAttribute('data-connection')];
+        // let currProject = newTodo.todo[e.target.dataset.connection]
+        addNewTask(proj)
+        showTasks(proj, currProject)
     })
 
     const addNewTask = (project) => {
-        const title = document.getElementById('title');
-        title
-        project.addTask()
+        const title = document.querySelector('#title');
+        const description = document.querySelector('#description');
+        const dueDate = document.querySelector('#dueDate');
+        const priority = document.querySelector('#priority');
+
+        const task = new Task(title.value, description.value, dueDate.value, priority.value)
+        project.addTask(task)
+        // currProject.addTask('123')
+        // project.addTask()
+    }
+
+    const showTasks = (project, currProject) => {
+        const taskList = document.createElement('div')
+        taskList.classList.add('task-list');
+        const tasks = project.getAllTasks();
+        tasks.forEach(task => {
+            const newTask = document.createElement('div');
+            newTask.classList.add('task');
+            for (let prop in task) {
+                newTask.innerHTML += `${task[prop]}\n`;
+                taskList.appendChild(newTask);
+            }
+            currProject.appendChild(taskList)
+        })
     }
 
 }
