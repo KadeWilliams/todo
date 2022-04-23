@@ -12,6 +12,9 @@ const Project = (name) => {
         },
         getTasks() {
             return _tasks;
+        },
+        removeTask(elem, idx) {
+
         }
     }
 }
