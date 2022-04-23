@@ -22,17 +22,18 @@
             <button class="createProjectBtn">+</button>
         </section>
 
-        <section class="todo new-todo">
-            <div class="project">
+        <section class="todo">
+            <div class="project hidden">
                 <div class="currentProject"></div>
-                <div class="currentTitle hidden">currentTitle</div>
-                <div class="currentDescription hidden">currentDescription</div>
-                <div class="currentDueDate hidden">currentDueDate</div>
-                <div class="currentPriority hidden">currentPriority</div>
-                <div class="currentStatus hidden">currentStatus</div>
+                <!-- <div class="currentTitle">Title: </div>
+                <div class="currentDescription">Description: </div>
+                <div class="currentDueDate">Due Date: </div>
+                <div class="currentPriority">Priority: </div>
+                <div class="currentStatus">Status: </div> -->
+                <button class="addTaskBtn">+</button>
             </div>
-            <form action="" onsubmit="return false;">
-                <label for="title">Title:</label>
+            <form class="addTaskForm hidden" action="" onsubmit="return false;">
+                <label for="title" required>Title:</label>
                 <input id="title" type="text">
 
                 <label for="description">Description:</label>
@@ -48,7 +49,7 @@
                     <option value="high">High</option>
                     <option value="critical">Critical</option>
                 </select>
-                <button class="createTodoBtn" type="submit">Create Todo</button>
+                <button class="createTaskBtn" type="submit">Create Task</button>
             </form>
         </section>
 
