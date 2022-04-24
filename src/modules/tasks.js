@@ -1,6 +1,6 @@
 // Factory Function Version
-const Task = (title, description = null, dueDate = "No Date", priority = null, status = false) => {
-    return { title, description, dueDate, priority, status }
+const Task = (title, description, dueDate, priority) => {
+    return { title, description, dueDate, priority }
     // let title = title;
     // let description = description;
     // let dueDate = dueDate;
@@ -38,17 +38,5 @@ const Task = (title, description = null, dueDate = "No Date", priority = null, s
 
     // }
 }
-
-// Class Version
-// class Task {
-//     constructor(taskTitle, description = null, dueDate = null, priority = null, checked = false) {
-//         this.taskTitle = taskTitle;
-//         this.description = description;
-//         this.dueDate = dueDate;
-//         this.priority = priority;
-//         this.checked = checked;
-//     }
-
-// }
 
 export { Task }

@@ -173,3 +173,9 @@ table {
     justify-self: center;
     text-align: center;
 }
+
+.task {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
