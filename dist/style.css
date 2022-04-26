@@ -132,8 +132,28 @@ table {
 /* •••••••••••••••••••••••••••••••••••••••••••••••••••• */
 
 html>* {
-    font-size: 3rem;
+    font-size: 1.2rem;
 }
+
+header {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(239, 239, 239);
+}
+
+.todo {
+    padding: 20px;
+}
+
+.currentProject {
+    font-size: 1.8rem;
+}
+
+.project>* {
+    margin: 10px 0;
+}
+
+
 
 #content {
     display: grid;
@@ -143,20 +163,20 @@ html>* {
 }
 
 .projects {
-    grid-column: 1;
-    grid-row: 1 / span end;
-    border: 5px solid red;
+    background-color: rgb(239, 239, 239);
 }
 
-.projects>button {
-    justify-self: end;
+.projectsBtn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .todo {
-    display: grid;
-    grid-column: 2/4;
-    grid-row: 1 / end;
-    border: 5px solid rgb(38, 255, 0);
+    /* display: grid; */
+    grid-column: 2 / span 3;
+    /* grid-row: 1 / end; */
+    /* border: 5px solid rgb(38, 255, 0); */
 }
 
 .hidden {
@@ -178,18 +198,9 @@ html>* {
     text-align: center;
 }
 
-/* .todo {
-    justify-content: center;
-} */
-
-.projects>button {
-    max-width: 10%;
-}
-
 .project {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
 }
 
 .project>button {
@@ -202,11 +213,53 @@ html>* {
     justify-content: space-evenly;
 }
 
+.task>* {
+    width: 16.6666666667%;
+}
+
 .taskList {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
 }
 
 .task-info:hover {
     background-color: red;
+}
+
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+}
+
+.flex>* {
+    margin: 0 10px;
+}
+
+.todo>.addTaskBtn {
+    display: grid;
+    justify-items: start;
+    align-items: end;
+    /* align-content: start; */
+    /* place-content: start; */
+}
+
+button {
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 4px;
+    color: green;
+
+}
+
+button:hover {
+    cursor: pointer;
+    border: 1px solid green;
+    background-color: green;
+    border-radius: 8px;
+    color: white
 }

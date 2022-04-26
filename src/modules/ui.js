@@ -18,7 +18,9 @@ export default function ui() {
     const taskList = document.querySelector('.taskList');
     let newProjectName;
     let currentTask;
+
     // ••••••••••••• DOM Functions •••••••••••••••
+
     const toggleProjectForm = () => {
         createProjectForm.classList.toggle('hidden');
         if (createProjectBtn.innerHTML == 'Add Project') {
@@ -32,6 +34,7 @@ export default function ui() {
 
     const toggleTaskForm = () => {
         addTaskForm.classList.toggle('hidden');
+        addTaskForm.classList.toggle('flex');
         // classToToggle.classList.toggle('hidden');
         if (addTaskBtn.innerHTML == 'Add Task') {
             addTaskBtn.innerHTML = 'Cancel';
