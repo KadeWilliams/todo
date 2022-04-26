@@ -1,9 +1,6 @@
 import { Project } from "./project";
 import { Task } from "./tasks";
 
-// TODO: Allow the user to update data on a specific task or delete entire tasks
-// TODO: Allow the user to delete projects from the array of projects which will remove them from the dom
-
 const projects = {}
 const defaultProject = Project('Default');
 
@@ -20,30 +17,29 @@ export default function ui() {
     const addTaskBtn = document.querySelector('.addTaskBtn');
     const taskList = document.querySelector('.taskList');
     let newProjectName;
-
+    let currentTask;
     // ••••••••••••• DOM Functions •••••••••••••••
     const toggleProjectForm = () => {
         createProjectForm.classList.toggle('hidden');
-        if (createProjectBtn.innerHTML == '+') {
+        if (createProjectBtn.innerHTML == 'Add Project') {
             createProjectBtn.innerHTML = 'Cancel';
             createProjectForm.reset();
             // createProjectInput.value = '';
         } else {
-            createProjectBtn.innerHTML = '+';
+            createProjectBtn.innerHTML = 'Add Project';
         }
     }
 
     const toggleTaskForm = () => {
         addTaskForm.classList.toggle('hidden');
         // classToToggle.classList.toggle('hidden');
-        if (addTaskBtn.innerHTML == '+') {
+        if (addTaskBtn.innerHTML == 'Add Task') {
             addTaskBtn.innerHTML = 'Cancel';
         } else {
-            addTaskBtn.innerHTML = '+';
+            addTaskBtn.innerHTML = 'Add Task';
             addTaskForm.reset();
         }
     }
-
 
     const showProject = (project) => {
         currentProject.innerHTML = '';
@@ -57,20 +53,26 @@ export default function ui() {
 
     const showTasks = (project) => {
         taskList.innerHTML = '';
-        const xBtn = document.createElement('button');
-        xBtn.innerHTML = "X"
         projects[project].forEach((task, idx) => {
             const newTask = document.createElement('div');
+            const xBtn = document.createElement('button');
+            const editBtn = document.createElement('button');
+            editBtn.innerHTML = "Edit";
+            editBtn.classList.add('editTask');
+            xBtn.innerHTML = "X";
+            xBtn.classList.add('deleteTask');
             newTask.classList.add(`task`);
+            newTask.classList.add(idx);
             for (let elem in task) {
-                newTask.innerHTML += `<p class=${elem}>${task[elem]}</p>`;
+                newTask.innerHTML += `<p class="${elem} task-info" >${task[elem]}</p>`;
                 // newTask.innerHTML += `<p class=${elem}> ${elem.toUpperCase()} ${task[elem]} </p>`;
             }
+            newTask.appendChild(xBtn);
+            newTask.appendChild(editBtn)
             taskList.appendChild(newTask);
-            // TODO: Create an "X" Button which will remove the task from the task list and remove it from the dom
-            // taskList.appendChild(xBtn)
         })
     }
+
 
     // ••••••••• Creation Functions •••••••••
     const createNewTask = (project) => {
@@ -83,6 +85,11 @@ export default function ui() {
         showProject(project)
     }
 
+    const deleteTask = (task) => {
+        projects[currentProject.innerHTML].splice(task);
+        showTasks(currentProject.innerHTML)
+    }
+
     const createProject = () => {
         const projectName = createProjectInput.value;
         const project = Project(projectName);
@@ -90,7 +97,6 @@ export default function ui() {
     }
 
     const addProject = (project) => {
-        //FIXME
         const projectElement = document.createElement('div');
         projectElement.classList.add('tile');
         projectElement.innerHTML = project.getName();
@@ -98,9 +104,31 @@ export default function ui() {
         projects[project.getName()] = project.getTasks()
     }
 
+
+    // TODO: Allow the user to update data on a specific task or delete entire tasks
+
+    // const updateTask = (currProj, form) => {
+
+    //     for (let i = 0; i < 4; i++) {
+    //         // console.log(form.elements[i]);
+    //     }
+
+    //     projects[currProj].forEach((task, idx) => {
+
+    //         for (let elem in task) {
+    //             // form.elements[i].value = task[elem];
+    //             console.log(elem);
+    //         }
+    //         // console.log(form.elements[idx])
+    //         // form.elements[idx].value = task[elem];
+    //     })
+    //     // deleteTask(updateValue)
+    // }
+
+
     addProject(defaultProject);
     showProject(defaultProject);
-
+    // ••••••••••••••• EVENT LISTENERS •••••••••••••••
     document.addEventListener('click', function (e) {
         if (e.target.classList.contains('createProjectBtn')) {
             toggleProjectForm();
@@ -118,6 +146,18 @@ export default function ui() {
             createNewTask(currentProject.innerHTML);
             showTasks(currentProject.innerHTML)
             addTaskForm.reset();
+        } else if (e.target.classList.contains('deleteTask')) {
+            currentTask = projects[currentProject.innerHTML][Number([e.path[1].classList[e.path[1].classList.length - 1]][0])];
+            deleteTask(currentTask);
+        } else if (e.target.classList.contains('task-info')) {
+            console.log('here')
+            let toUpdate = e.target.classList[0];
+        } else if (e.target.classList.contains('editTask')) {
+            let form = e.path[4].childNodes[3];
+            // FIXME
+            // currentTask = projects[currentProject.innerHTML][Number([e.path[1].classList[e.path[1].classList.length - 1]][0])];
+            // updateTask(currentProject.innerHTML, form);
+
         }
     })
 

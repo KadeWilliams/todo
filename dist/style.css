@@ -131,6 +131,10 @@ table {
 
 /* •••••••••••••••••••••••••••••••••••••••••••••••••••• */
 
+html>* {
+    font-size: 3rem;
+}
+
 #content {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -174,8 +178,35 @@ table {
     text-align: center;
 }
 
+/* .todo {
+    justify-content: center;
+} */
+
+.projects>button {
+    max-width: 10%;
+}
+
+.project {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
+.project>button {
+    max-width: 10%;
+}
+
 .task {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+}
+
+.taskList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.task-info:hover {
+    background-color: red;
 }
