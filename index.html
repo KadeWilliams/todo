@@ -7,58 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@300;700&family=Kanit:wght@400;700&family=Syne:wght@400;600;800&display=swap');
+    </style>
 </head>
 
 <body>
-    <header>
-        <div class="yourTasks">YourTasks</div>
-    </header>
-    <div id="content">
-        <section class="projects">
-            <div class="projectList"></div>
 
-            <form action="" class="createProjectForm hidden" onsubmit="return false;">
-                <input type="text" placeholder="Enter Project Name" class="createProjectInput">
-                <button type="submit" class="addProjectBtn">Add</button>
-            </form>
-            <div class="projectsBtn">
-                <button class="createProjectBtn">Add Project</button>
-            </div>
-
-        </section>
-
-        <section class="todo">
-
-            <div class="project hidden">
-                <div class="currentProject"></div>
-                <div class="taskList"></div>
-                <button class="addTaskBtn">Add Task</button>
-
-                <form class="addTaskForm hidden" action="" onsubmit="return false;">
-                    <label for="title" required>Title:</label>
-                    <input id="title" type="text">
-
-                    <label for="description">Description:</label>
-                    <input id="description" type="text">
-
-                    <label for="dueDate">Due Date:</label>
-                    <input id="dueDate" type="text">
-
-                    <label for="priority">Priority:</label>
-                    <select name="priority" id="priority">
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                        <option value="critical">Critical</option>
-                    </select>
-                    <button class="createTaskBtn" type="submit">Create Task</button>
-                </form>
-            </div>
-
-        </section>
-
-        <!-- <footer class="footer">&copy; Kade Williams</footer> -->
-    </div>
+    <!-- <footer class="footer">&copy; Kade Williams</footer> -->
     <script src="main.js"></script>
 </body>
 
