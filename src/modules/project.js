@@ -11,6 +11,7 @@ const Project = (name) => {
             return _tasks;
         },
         removeTask(elem, idx) {
+
         }
     }
 }

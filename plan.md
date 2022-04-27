@@ -27,20 +27,12 @@
     - 
 
 
-### Todo structure:
-[
-            project1: {<br />
-                tasks: [<br />
-                    task1,<br />
-                    task2,<br />
-                    task3<br />
+### Project structure:
+Project {
+            project1: [<br />
+                    {task1},<br />
+                    {task2},<br />
+                    {task3}<br />
                 ]<br />
-            }, <br />
-            project2: {<br />
-                tasks: [<br />
-                    task1,<br />
-                    task2,<br />
-                    task3,<br />
-                ]<br />
-            }<br />
-        ]
+            },
+}
