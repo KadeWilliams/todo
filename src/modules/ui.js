@@ -1,27 +1,16 @@
 import { Project } from "./project";
 import { Task } from "./tasks";
 
-// let existing = localStorage.getItem('projects');
-
-// let existingData = localStorage.getItem('projects');
-
-
-
-/* should only contain UI elements generate UI elements
-when new tasks and projects are created within their own modules
-do all the necessary generation of each project (objects) and tasks (objects) in their modules
-*/
-
 const getLocal = () => {
     let projects;
-    if (localStorage.getItem('projects') == "{}") {
-
+    if (localStorage.getItem('projects') == "{}" || !localStorage.getItem('projects')) {
         projects = {}
         const defaultProject = Project('Default');
-        const defaultTask = Task('Default Task');
+        const defaultTask = Task('Default');
+        const anotherTask = Task('Another');
         defaultProject.addTask(defaultTask);
-        projects[defaultProject.getName()] = defaultProject.getTasks();
-
+        defaultProject.addTask(anotherTask);
+        projects[defaultProject.getName()] = defaultProject.getTasks(); // --> projects[Default] = [{Tasks}, {Task} ... {Task}n]
     } else {
         projects = localStorage.getItem('projects')
         projects = JSON.parse(projects)
@@ -29,79 +18,160 @@ const getLocal = () => {
     return projects;
 }
 
-const deleteProject = (projects, project) => {
-    delete projects[project];
-    localStorage.setItem('projects', JSON.stringify(projects))
+const initProjects = (projects, func) => {
+    Object.keys(projects).forEach(value => func(value))
 }
 
+const toggle = () => {
+    const createProjectBtn = document.querySelector('.addProjectBtn');
+    createProjectBtn.classList.toggle('hidden');
+    const projectForm = document.querySelector('.projectForm')
+    projectForm.classList.toggle('hidden');
+}
+
+const buildForm = () => {
+    const bottomDiv = document.querySelector('.bottomDiv');
+
+    const projectForm = document.createElement('form');
+    projectForm.classList.add('hidden');
+    projectForm.classList.add('projectForm');
+    projectForm.onsubmit = function (e) { e.preventDefault() }
+
+    const newProjInput = document.createElement('input');
+    newProjInput.classList.add('newProjInput');
+
+    const newProjBtn = document.createElement('button');
+    newProjBtn.classList.add('newProjBtn');
+    newProjBtn.innerHTML = "Add"
+
+    const cancel = document.createElement('button');
+    cancel.classList.add('cancel');
+    cancel.innerHTML = "Cancel"
+
+    projectForm.appendChild(newProjInput);
+    projectForm.appendChild(newProjBtn);
+    projectForm.appendChild(cancel);
+
+    bottomDiv.appendChild(projectForm);
+}
+
+const showCurrentProject = (projects, currentProject, pane) => {
+    pane.innerHTML = '';
+    const projectTitle = document.createElement('h1');
+    projectTitle.innerText = currentProject;
+    pane.appendChild(projectTitle);
+    projects[currentProject].forEach(value => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+
+        const oBtn = document.createElement('button');
+        oBtn.classList.add('completeBtn');
+        oBtn.classList.add(currentProject);
+        oBtn.innerHTML = "✔";
+
+        card.appendChild(oBtn);
+        for (let prop in value) {
+            const element = document.createElement('div');
+            element
+            element.innerHTML = value[prop];
+            card.appendChild(element)
+        }
+        pane.appendChild(card);
+    })
+}
 
 function buildUI(projects) {
-    // checks if anything is in local storage, if there's not instantiate new projects object
-    // Primary HTML element
     const content = document.getElementById('content');
 
-    // projects pane 
     const projectsPane = document.createElement('section');
-    projectsPane.classList.add('projects');
+    projectsPane.classList.add('projectsPane');
+
+    const projectsList = document.createElement('div');
+    projectsList.classList.add('projectsList')
+
+    const createProjectBtn = document.createElement('button');
+    createProjectBtn.classList.add('addProjectBtn');
+    createProjectBtn.innerHTML = 'Create Project';
+
+    const bottomDiv = document.createElement('div');
+    bottomDiv.classList.add('bottomDiv');
+    bottomDiv.appendChild(createProjectBtn);
+    projectsPane.appendChild(bottomDiv);
+
+    const currentProjectPane = document.createElement('section')
+    currentProjectPane.classList.add('currentProject');
+    showCurrentProject(projects, 'Default', currentProjectPane)
 
     const newProjects = (project) => {
         const newProj = document.createElement('div');
         newProj.classList.add('project');
         newProj.classList.add(`${project.replace(/\s/g, "")}`);
-        newProj.innerHTML = project;
+        newProj.innerHTML = `<p class='projectName'>${project}</p> <form class='edit hidden' onsubmit="return false;"><input value=${project} class='newName'></form>`;
 
         const xBtn = document.createElement('button');
-        // xBtn.innerHTML = "🗑️";
         xBtn.innerHTML = "X";
         xBtn.classList.add('deleteProj');
 
-        const editBtn = document.createElement('button');
-        editBtn.innerHTML = "edit";
-        editBtn.classList.add('editProj');
+        // const editBtn = document.createElement('button');
+        // editBtn.innerHTML = "edit";
+        // editBtn.classList.add('editProj');
 
         const btnContainer = document.createElement('div');
         btnContainer.classList.add('btnContainer');
 
-        btnContainer.appendChild(editBtn);
+        // btnContainer.appendChild(editBtn);
         btnContainer.appendChild(xBtn);
 
-        newProj.append(btnContainer)
-        projectsPane.appendChild(newProj);
+        newProj.append(btnContainer);
+        projectsList.appendChild(newProj);
+        projectsPane.appendChild(projectsList);
     }
-    // show projects
 
     document.addEventListener('click', function (e) {
         if (e.target.classList.contains('deleteProj')) {
-            const projName = e.path[1].classList[1];
-            deleteProject(projects, projName)
-            projectsPane.innerHTML = ''
-            Object.keys(projects).forEach(value => newProjects(value))
+            const projName = e.path[2].classList[1];
+            const element = document.querySelector(`.${projName}`).remove();
+            delete projects[projName];
+            localStorage.setItem('projects', JSON.stringify(projects))
         } else if (e.target.classList.contains('project')) {
-            console.log(projects[e.path[0].classList[1]]);
+            // TODO: show project
+        } else if (e.target.classList.contains('addProjectBtn')) {
+            toggle();
+        } else if (e.target.classList.contains('newProjBtn')) {
+            const newProj = document.querySelector('.newProjInput');
+            const proj = Project(newProj.value);
+            projects[proj.getName()] = proj.getTasks();
+            newProjects(proj.getName())
+            localStorage.setItem('projects', JSON.stringify(projects))
+            toggle()
+        } else if (e.target.classList.contains('cancel')) {
+            toggle();
+        } else if (e.target.classList.contains('projectName')) {
+            const selectedProj = e.path[1].classList[1];
+            showCurrentProject(projects, selectedProj, currentProjectPane)
+        } else if (e.target.classList.contains('completeBtn')) {
+            const curProj = currentProjectPane.firstChild.innerHTML;
+            const completedTask = e.path[0].classList[1];
+            let value = projects[curProj].findIndex(object => {
+                return object.title === completedTask;
+            })
+            console.log(value)
+            if (value !== -1) {
+                projects[curProj].splice(value, 1);
+            }
+            showCurrentProject(projects, curProj, currentProjectPane)
         }
+
+        //TODO: Create form to add tasks to a given project
     })
 
-    const newProject = Project('newProject');
-    const newTask = Task('newTask')
-
-    newProject.addTask(newTask);
-
-    projects[newProject.getName()] = newProject.getTasks();
-
     // gets each project 
-    Object.keys(projects).forEach(value => newProjects(value))
+    initProjects(projects, newProjects);
 
-    // add project button
-    const addProjectBtn = document.createElement('button');
-    addProjectBtn.classList.add('addProjectBtn');
-    addProjectBtn.innerHTML = '+ Add Project';
-
-    const bottomDiv = document.createElement('div');
-    bottomDiv.classList.add('bottomDiv');
-    bottomDiv.appendChild(addProjectBtn);
-
-    projectsPane.appendChild(bottomDiv);
     content.appendChild(projectsPane)
+    content.appendChild(currentProjectPane);
+    buildForm();
+
 }
 
 export { buildUI, getLocal }

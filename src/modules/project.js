@@ -1,5 +1,4 @@
 // Factory Function Version
-// TODO: create getters and setters for projects 
 const Project = (name) => {
     const tasks = [];
 
