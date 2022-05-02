@@ -7,9 +7,7 @@ const getLocal = () => {
         projects = {}
         const defaultProject = Project('Default');
         const defaultTask = Task('Default');
-        const anotherTask = Task('Another');
         defaultProject.addTask(defaultTask);
-        defaultProject.addTask(anotherTask);
         projects[defaultProject.getName()] = defaultProject.getTasks(); // --> projects[Default] = [{Tasks}, {Task} ... {Task}n]
     } else {
         projects = localStorage.getItem('projects')
@@ -213,9 +211,12 @@ function buildUI(projects) {
             let value = projects[curProj].findIndex(object => {
                 return object.title === completedTask;
             })
+            console.log(value)
             if (value !== -1) {
                 projects[curProj].splice(value, 1);
             }
+            localStorage.setItem('projects', JSON.stringify(projects))
+
             showCurrentProject(projects, curProj, currentProjectPane)
         } else if (e.target.classList.contains('taskBtn')) {
             toggleForm();
