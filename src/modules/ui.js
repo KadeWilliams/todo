@@ -58,11 +58,6 @@ const buildForm = () => {
     bottomDiv.appendChild(projectForm);
 }
 
-// const addTask = (title, dueDate = null, projects) => {
-
-//     showCurrentProject(projects, currentProject, pane)
-// }
-
 const showCurrentProject = (projects, currentProject, pane) => {
     pane.innerHTML = '';
     const projectTitle = document.createElement('h1');
@@ -160,14 +155,9 @@ function buildUI(projects) {
         xBtn.innerHTML = "X";
         xBtn.classList.add('deleteProj');
 
-        // const editBtn = document.createElement('button');
-        // editBtn.innerHTML = "edit";
-        // editBtn.classList.add('editProj');
-
         const btnContainer = document.createElement('div');
         btnContainer.classList.add('btnContainer');
 
-        // btnContainer.appendChild(editBtn);
         btnContainer.appendChild(xBtn);
 
         newProj.append(btnContainer);
@@ -178,9 +168,7 @@ function buildUI(projects) {
     const newTask = (project, title, dueDate) => {
         const createdTask = Task(title);
         projects[project].push(createdTask);
-        console.log(projects[project])
         localStorage.setItem('projects', JSON.stringify(projects))
-        // projects[project].tasks.push(createdTask);
     }
 
     document.addEventListener('click', function (e) {
@@ -190,7 +178,6 @@ function buildUI(projects) {
             delete projects[projName];
             localStorage.setItem('projects', JSON.stringify(projects))
         } else if (e.target.classList.contains('project')) {
-            // TODO: show project
         } else if (e.target.classList.contains('addProjectBtn')) {
             toggle();
         } else if (e.target.classList.contains('newProjBtn')) {
@@ -211,12 +198,10 @@ function buildUI(projects) {
             let value = projects[curProj].findIndex(object => {
                 return object.title === completedTask;
             })
-            console.log(value)
             if (value !== -1) {
                 projects[curProj].splice(value, 1);
             }
             localStorage.setItem('projects', JSON.stringify(projects))
-
             showCurrentProject(projects, curProj, currentProjectPane)
         } else if (e.target.classList.contains('taskBtn')) {
             toggleForm();
@@ -224,20 +209,10 @@ function buildUI(projects) {
             const newTaskTitle = document.querySelector('#titleInput').value;
             const newTaskDueDate = document.querySelector('#dateInput').value;
             const curProj = currentProjectPane.firstChild.innerHTML;
-            // if (!newTaskDueDate === '' || newTaskDueDate) {
-            //     const newTask = Task(newTaskTitle, newTaskDueDate);
-            //     projects[curProj].addTask(newTask);
-            // } else {
-            // }
-
-
-
-            // addTask();
             toggleForm();
             newTask(curProj, newTaskTitle, newTaskDueDate)
             showCurrentProject(projects, curProj, currentProjectPane)
         }
-        //TODO: Create form to add tasks to a given project
     })
 
     // gets each project 

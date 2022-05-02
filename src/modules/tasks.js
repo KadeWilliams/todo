@@ -1,6 +1,5 @@
 import { format } from 'date-fns';
 const today = new Date();
-// Factory Function Version
 const Task = (title, dueDate = today.toLocaleDateString(), priority = 'low') => {
     let _priority;
     if (priority == 'low' || priority == 'medium' || priority == 'high') {
