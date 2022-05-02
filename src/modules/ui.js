@@ -29,6 +29,11 @@ const toggle = () => {
     projectForm.classList.toggle('hidden');
 }
 
+const toggleForm = () => {
+    const taskForm = document.querySelector('.createTask');
+    taskForm.classList.toggle('hidden');
+}
+
 const buildForm = () => {
     const bottomDiv = document.querySelector('.bottomDiv');
 
@@ -55,18 +60,63 @@ const buildForm = () => {
     bottomDiv.appendChild(projectForm);
 }
 
+// const addTask = (title, dueDate = null, projects) => {
+
+//     showCurrentProject(projects, currentProject, pane)
+// }
+
 const showCurrentProject = (projects, currentProject, pane) => {
     pane.innerHTML = '';
     const projectTitle = document.createElement('h1');
+
+    const addTaskBtn = () => {
+        const taskBtn = document.createElement('button');
+        taskBtn.classList.add('taskBtn');
+        taskBtn.innerHTML = 'Create Task';
+        return taskBtn;
+    }
+
+    const addTaskForm = () => {
+        const taskForm = document.createElement('form');
+        taskForm.classList.add('hidden');
+        taskForm.classList.add('createTask');
+
+        const titleInput = document.createElement('input');
+        titleInput.setAttribute('placeholder', 'Title')
+
+        titleInput.setAttribute('id', 'titleInput');
+
+        const dateInput = document.createElement('input');
+        dateInput.setAttribute('placeholder', 'Due Date')
+
+        dateInput.setAttribute('id', 'dateInput');
+
+        const addTask = document.createElement('button');
+        addTask.innerHTML = 'Add +';
+        addTask.classList.add('addTaskBtn');
+
+        taskForm.appendChild(titleInput);
+
+        taskForm.appendChild(dateInput);
+
+        taskForm.appendChild(addTask);
+
+        taskForm.onsubmit = function (e) { e.preventDefault() }
+
+        return taskForm;
+    }
+
     projectTitle.innerText = currentProject;
     pane.appendChild(projectTitle);
+    pane.appendChild(addTaskBtn());
+    pane.appendChild(addTaskForm());
     projects[currentProject].forEach(value => {
         const card = document.createElement('div');
         card.classList.add('card');
 
         const oBtn = document.createElement('button');
         oBtn.classList.add('completeBtn');
-        oBtn.classList.add(currentProject);
+        oBtn.classList.add(value.title);
         oBtn.innerHTML = "✔";
 
         card.appendChild(oBtn);
@@ -127,6 +177,14 @@ function buildUI(projects) {
         projectsPane.appendChild(projectsList);
     }
 
+    const newTask = (project, title, dueDate) => {
+        const createdTask = Task(title);
+        projects[project].push(createdTask);
+        console.log(projects[project])
+        localStorage.setItem('projects', JSON.stringify(projects))
+        // projects[project].tasks.push(createdTask);
+    }
+
     document.addEventListener('click', function (e) {
         if (e.target.classList.contains('deleteProj')) {
             const projName = e.path[2].classList[1];
@@ -155,23 +213,38 @@ function buildUI(projects) {
             let value = projects[curProj].findIndex(object => {
                 return object.title === completedTask;
             })
-            console.log(value)
             if (value !== -1) {
                 projects[curProj].splice(value, 1);
             }
             showCurrentProject(projects, curProj, currentProjectPane)
-        }
+        } else if (e.target.classList.contains('taskBtn')) {
+            toggleForm();
+        } else if (e.target.classList.contains('addTaskBtn')) {
+            const newTaskTitle = document.querySelector('#titleInput').value;
+            const newTaskDueDate = document.querySelector('#dateInput').value;
+            const curProj = currentProjectPane.firstChild.innerHTML;
+            // if (!newTaskDueDate === '' || newTaskDueDate) {
+            //     const newTask = Task(newTaskTitle, newTaskDueDate);
+            //     projects[curProj].addTask(newTask);
+            // } else {
+            // }
 
+
+
+            // addTask();
+            toggleForm();
+            newTask(curProj, newTaskTitle, newTaskDueDate)
+            showCurrentProject(projects, curProj, currentProjectPane)
+        }
         //TODO: Create form to add tasks to a given project
     })
 
     // gets each project 
     initProjects(projects, newProjects);
 
-    content.appendChild(projectsPane)
+    content.appendChild(projectsPane);
     content.appendChild(currentProjectPane);
     buildForm();
-
 }
 
 export { buildUI, getLocal }

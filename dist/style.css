@@ -218,7 +218,9 @@ form>* {
 
 .addProjectBtn,
 .newProjBtn,
-.cancel {
+.cancel,
+.taskBtn,
+.addTaskBtn {
     margin: 0 4px;
     cursor: pointer;
     border: none;
